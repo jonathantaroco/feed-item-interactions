@@ -37,8 +37,13 @@
 								</header>
 								<div class="slds-text-longform">
 									<template lwc:if={feedItem.isTextPost}>
-										<lightning-formatted-rich-text value={feedItem.body}></lightning-formatted-rich-text>
+										<lightning-accordion allow-multiple-sections-open>
+											<lightning-accordion-section label="Internal Post">
+												<lightning-formatted-rich-text value={feedItem.body}></lightning-formatted-rich-text>
+											</lightning-accordion-section>
+										</lightning-accordion>
 									</template>
+
 									<template lwc:elseif={feedItem.isEmail}>
 										<lightning-accordion allow-multiple-sections-open>
 											<lightning-accordion-section label={feedItem.relatedRecordName}>

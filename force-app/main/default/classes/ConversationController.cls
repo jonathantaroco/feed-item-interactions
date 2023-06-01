@@ -22,7 +22,7 @@ public without sharing class ConversationController {
         List<FeedItem> feedItems = [SELECT Id, Body, CreatedBy.Name, CreatedDate, Type, RelatedRecordId , CreatedBy.Profile.Name
                                     FROM FeedItem
                                     WHERE ParentId = :caseId
-                                    AND Type IN ('TextPost', 'ContentPost')
+                                    AND Type IN ('TextPost', 'ContentPost', 'LinkPost')
                                     ORDER BY CreatedDate DESC];
         
         // Merge email messages and feed items into a single list, sorted by created date
