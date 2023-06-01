@@ -1,0 +1,8 @@
+.border-style {
+	border-bottom: thin solid;
+	border-bottom-color: lightgrey;
+}
+
+:host {
+    --sds-c-textarea-sizing-min-height: 600px;
+}

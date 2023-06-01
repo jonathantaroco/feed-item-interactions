@@ -1,0 +1,57 @@
+<template>
+	<lightning-accordion allow-multiple-sections-open>
+		<lightning-accordion-section name="interactions" label="Interactions">
+			<div class="slds-feed reviews-style slds-is-relative slds-scrollable_y">
+				<ul class="slds-feed__list">
+					<template for:each={feedItems} for:item="feedItem">
+						<li class="slds-feed__item border-style" key={feedItem.keyId}>
+							<article class="slds-post">
+								<header class="slds-post__header slds-media">
+									<div class="slds-media__body">
+										<div class="slds-grid slds-has-flexi-truncate">
+											<template lwc:if={feedItem.isTextPost}>
+												<lightning-icon icon-name="standard:post" size="x-small" class="slds-icon-standard-post slds-m-right_x-small slds-var-m-bottom_xxx-small slds-icon_container"></lightning-icon>
+											</template>
+											<template lwc:elseif={feedItem.isEmail}>
+												<lightning-icon icon-name="standard:email" size="x-small" class="slds-icon-standard-post slds-m-right_x-small slds-var-m-bottom_xxx-small slds-icon_container"></lightning-icon>
+											</template>
+											<p>
+												<a title={feedItem.createdByName} onclick={navigateToRecord} data-record-id={feedItem.createdById}>
+													{feedItem.createdByName}
+												</a>
+											</p>
+										</div>
+										<div class="slds-text-body_small">
+											<lightning-layout multiple-rows="true">
+												<lightning-layout-item size="12">
+													<lightning-formatted-date-time value={feedItem.createdDate}></lightning-formatted-date-time>
+												</lightning-layout-item>
+												<template lwc:if={feedItem.isEmail}>
+													<lightning-layout-item size="12">
+														To: <lightning-formatted-text value={feedItem.toAddress}></lightning-formatted-text>
+													</lightning-layout-item>
+												</template>
+											</lightning-layout>
+										</div>
+									</div>
+								</header>
+								<div class="slds-text-longform">
+									<template lwc:if={feedItem.isTextPost}>
+										<lightning-formatted-rich-text value={feedItem.body}></lightning-formatted-rich-text>
+									</template>
+									<template lwc:elseif={feedItem.isEmail}>
+										<lightning-accordion allow-multiple-sections-open>
+											<lightning-accordion-section label={feedItem.relatedRecordName}>
+												<lightning-textarea value={feedItem.body} readonly></lightning-textarea>
+											</lightning-accordion-section>
+										</lightning-accordion>
+									</template>
+								</div>
+							</article>
+						</li>
+					</template>
+				</ul>
+			</div>
+		</lightning-accordion-section>
+	</lightning-accordion>
+</template>
